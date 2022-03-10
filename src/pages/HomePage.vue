@@ -25,8 +25,8 @@ export default {
   },
   setup(){
     const cards = ref([
-      { color: 'bg-primary', number: 15, text: 'Kitap Sayısı' },
-      { color: 'bg-secondary', number: 7, text: 'Kategori Sayısı' },
+      { color: '#F5365C', number: 15, text: 'Kitap Sayısı' },
+      { color: '#0079FB', number: 7, text: 'Kategori Sayısı' },
       { color: 'bg-info', number: 20, text: 'Yazar Sayısı' },
       { color: 'bg-warning', number: 10, text: 'Yayınevi Sayısı' },
     ])
