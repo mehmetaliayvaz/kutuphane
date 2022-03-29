@@ -27,8 +27,8 @@ export default {
     const cards = ref([
       { color: '#F5365C', number: 15, text: 'Kitap Sayısı' },
       { color: '#0079FB', number: 7, text: 'Kategori Sayısı' },
-      { color: 'bg-info', number: 20, text: 'Yazar Sayısı' },
-      { color: 'bg-warning', number: 10, text: 'Yayınevi Sayısı' },
+      { color: '#2DCE89', number: 20, text: 'Yazar Sayısı' },
+      { color: '#FB6340', number: 10, text: 'Yayınevi Sayısı' },
     ])
 
     return{
