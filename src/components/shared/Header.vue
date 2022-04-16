@@ -14,19 +14,22 @@
     </div>
   </div>
 
-  <section v-if="showMenu" id="mobile-menu" class="d-flex flex-column align-items-center d-md-none">
-    <div>
-      <router-link 
-        v-for="(item, index) in menu"
-        :key="index"
-        :to="item.path"
-        class="d-flex align-items-center py-3 text-white text-decoration-none"
-      >
-        <component :is="item.icon" class="me-2 home-icon" />
-        <h2 class="m-0">{{ item.title }}</h2>
-      </router-link>
-    </div>
-  </section>
+  <transition name="fade">
+    <section v-if="showMenu" id="mobile-menu" class="d-flex flex-column align-items-center d-md-none">
+      <div>
+        <router-link 
+          v-for="(item, index) in menu"
+          :key="index"
+          :to="item.path"
+          class="d-flex align-items-center py-3 text-white text-decoration-none"
+          @click="showMenu = false"
+        >
+          <component :is="item.icon" class="me-2 home-icon" />
+          <h2 class="m-0">{{ item.title }}</h2>
+        </router-link>
+      </div>
+    </section>
+  </transition>
 </template>
 
 <script>
