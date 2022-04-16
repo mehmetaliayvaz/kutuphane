@@ -17,14 +17,14 @@
         <h2>Kategoriler</h2>
       </router-link>
       <router-link
-        to="/"
+        to="/books"
         class="d-flex align-items-center py-3 text-white text-decoration-none"
       >
         <BookIcon class="me-2" />
         <h2>Kitaplarım</h2>
       </router-link>
       <router-link
-        to="/"
+        to="/add"
         class="d-flex align-items-center py-3 text-white text-decoration-none"
       >
         <AddIcon class="me-2" />
