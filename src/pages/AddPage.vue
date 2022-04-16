@@ -1,13 +1,7 @@
 <template>
   <div id="category" class="py-5">
     <div class="container-app">
-      <div>
-        <div class="row">
-          <div class="col-12 col-md-12 mb-12">
-            <add-card />
-          </div>
-        </div>
-      </div>
+      <add-card />
     </div>
   </div>
 </template>

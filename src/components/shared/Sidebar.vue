@@ -1,6 +1,6 @@
 <template>
   <div id="sidebar" class="sidebar d-none d-md-flex flex-column align-items-center p-4">
-    <h1 class="text-white">KÜTÜPHANEM</h1>
+    <img src="/img/kutuphanem-logo.png" alt="" class="img-fluid">
     <div>
 
       <router-link 

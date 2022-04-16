@@ -1,6 +1,6 @@
 <template>
-  <div class="add-book">
-    <div class="add-book-image">
+  <div class="add-book flex-column flex-lg-row justify-content-md-between">
+    <div class="add-book-image me-lg-5">
       <AddImage />
       <div>Resim Yükle</div>
     </div>
@@ -77,12 +77,11 @@ export default {
 .add-book {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 
   max-width: 770px;
-  max-height: 260px;
   padding: 35px 50px 35px 60px;
   background-color: #fff;
+
   &-image {
     text-align: center;
     width: 100px;
@@ -98,8 +97,7 @@ export default {
     }
   }
   .book-info {
-    margin-left: 5rem;
-    width: 100%;
+    width: 300px;
 
     span {
       display: flex;
