@@ -1,7 +1,7 @@
 <template>
   <div class="app d-flex">
     <Sidebar v-if="route.name != 'login-page'" />
-    <div class="w-100">
+    <div class="w-100" style="min-height: 100vh">
       <Header v-if="route.name != 'login-page'" />
       <RouterView />
     </div>

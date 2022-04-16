@@ -15,8 +15,9 @@
   </div>
 
   <transition name="fade">
-    <section v-if="showMenu" id="mobile-menu" class="d-flex flex-column align-items-center d-md-none">
-      <div>
+    <section v-if="showMenu" id="mobile-menu" class="d-md-none">
+      <close-icon @click="showMenu = false" fill="white" class="mx-4 my-3" />
+      <div class="mobile-menu-nav">
         <router-link 
           v-for="(item, index) in menu"
           :key="index"
@@ -40,9 +41,10 @@ import CategoriesIcon from "../icons/CategoriesIcon.vue";
 import BookIcon from "../icons/BookIcon.vue";
 import AddIcon from "../icons/AddIcon.vue";
 import { ref } from '@vue/reactivity';
+import CloseIcon from '../icons/CloseIcon.vue';
 export default {
   name: "Header",
-  components: { ExitIcon, MenuIcon, HomeIcon, CategoriesIcon, BookIcon, AddIcon },
+  components: { ExitIcon, MenuIcon, HomeIcon, CategoriesIcon, BookIcon, AddIcon, CloseIcon },
   setup(){
     const showMenu = ref(false);
     const menu = ref([
@@ -102,13 +104,19 @@ export default {
 
 #mobile-menu{
   position: fixed;
-  top: 50px;
+  top: 0;
   left: 0;
   z-index: 10;
   width: 100%;
   height: 100%;
   background: $primary;
-  padding: 5rem 0;
+
+  .mobile-menu-nav{
+    padding: 5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   h2{
     font-size: 1.25rem;
