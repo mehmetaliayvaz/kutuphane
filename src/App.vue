@@ -1,34 +1,38 @@
 <template>
   <div class="app d-flex">
-    <Sidebar />
+    <Sidebar v-if="route.name != 'login-page'" />
     <div class="w-100">
-      <Header />
-      <RouterView />  
+      <Header v-if="route.name != 'login-page'" />
+      <RouterView />
     </div>
-    
   </div>
 </template>
 
 <script>
 import Sidebar from "../src/components/shared/Sidebar.vue";
-import Header from './components/shared/Header.vue';
+import Header from "./components/shared/Header.vue";
+import { useRoute } from "vue-router";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Sidebar,
     Header,
-  }
+  },
+  setup() {
+    const route = useRoute();
 
-}
+    return {
+      route,
+    };
+  },
+};
 </script>
 
 <style lang="scss">
+@import "./scss/app.scss";
 
-  @import "./scss/app.scss";
-
-  .app{
-    background: $body-color;
-  }
-
+.app {
+  background: $body-color;
+}
 </style>
