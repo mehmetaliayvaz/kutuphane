@@ -84,6 +84,7 @@ export default {
   padding: 35px 50px 35px 60px;
   background-color: #fff;
   &-image {
+    text-align: center;
     width: 100px;
     display: flex;
     flex-direction: column;
