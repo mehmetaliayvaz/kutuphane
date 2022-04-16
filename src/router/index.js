@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage.vue"
 import CategoriesPage from "../pages/CategoriesPage.vue"
 import BookPage from "../pages/BookPage.vue"
 import AddPage from "../pages/AddPage.vue"
+import LoginPage from "../pages/LoginPage.vue"
 
 
 
@@ -29,6 +30,11 @@ const router = createRouter({
       path: '/add',
       name: 'add-page',
       component: AddPage
+    },
+    {
+      path: '/login',
+      name: 'login-page',
+      component: LoginPage
     },
   ]
 })
