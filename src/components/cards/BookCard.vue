@@ -1,6 +1,6 @@
 <template>
-  <div class="book-card">
-    <div class="book-card-img">
+  <div class="book-card p-3 p-md-4">
+    <div class="book-card-img me-3 me-md-4">
       <img src="/img/bookimage.png" alt="" />
     </div>
     <div class="book-info">
@@ -65,14 +65,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem;
   background-color: #fff;
-  max-width: 450px;
   max-height: 200px;
-
-  &-img {
-    margin-right: 2rem;
-  }
 
   .book-info {
     width: 100%;

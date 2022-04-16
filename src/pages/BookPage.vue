@@ -2,8 +2,8 @@
   <div id="category" class="py-5">
     <div class="container-app">
       <div>
-        <div class="row">
-          <div v-for="i in 4" :key="i" class="col-12 col-md-6 mb-4">
+        <div class="row justify-content-center">
+          <div v-for="i in 4" :key="i" class="col-12 col-lg-6 mb-4">
             <book-card />
           </div>
         </div>
