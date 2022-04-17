@@ -13,9 +13,9 @@
         </div>
       </div>
       <div class="content">
-        <h3 class="text-center">KÜTÜPHANEM NEDİR ?</h3>
+        <h3 class="text-center">Kütüphanem Nedir?</h3>
 
-        <ul>
+        <ul class="about">
           <li>
           Kütüphanem ile elinizdeki kitapları sanal ortama taşıyarak kolay ve hızlı bir şekilde
           istediğiniz kitabın bilgisine ulaşabilirsiniz.
@@ -77,5 +77,9 @@ export default {
 
     font-size: 16px;
   }
+}
+
+.about{
+  font-size: 1.1rem;
 }
 </style>
