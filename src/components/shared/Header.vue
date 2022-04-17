@@ -4,14 +4,14 @@
       <button class="btn d-md-none" @click="showMenu = !showMenu">
         <menu-icon />
       </button>
-      <h1 class="m-0">Anasayfa</h1>
+      <h1 class="page-title m-0">{{ activePage }}</h1>
     </div>
-    <div class="exit">
+    <button class="exit btn">
       <div class="me-1">Çıkış Yap</div>
       <span class="exit-icon">
         <ExitIcon />
       </span>
-    </div>
+    </button>
   </div>
 
   <transition name="fade">
@@ -21,7 +21,7 @@
         <router-link 
           v-for="(item, index) in menu"
           :key="index"
-          :to="item.path"
+          :to="{ name: item.pathName }"
           class="d-flex align-items-center py-3 text-white text-decoration-none"
           @click="showMenu = false"
         >
@@ -40,23 +40,33 @@ import HomeIcon from "../icons/HomeIcon.vue";
 import CategoriesIcon from "../icons/CategoriesIcon.vue";
 import BookIcon from "../icons/BookIcon.vue";
 import AddIcon from "../icons/AddIcon.vue";
-import { ref } from '@vue/reactivity';
+import { ref, computed } from '@vue/reactivity';
 import CloseIcon from '../icons/CloseIcon.vue';
+import { useRoute } from "vue-router";
+
 export default {
   name: "Header",
   components: { ExitIcon, MenuIcon, HomeIcon, CategoriesIcon, BookIcon, AddIcon, CloseIcon },
   setup(){
+    const route = useRoute();
+    const activePage = computed(() => {
+      const active = menu.value.find(item => item.pathName == route.name);
+      return active.title;
+    })
+
     const showMenu = ref(false);
     const menu = ref([
-      { icon: 'home-icon', title: 'Anasayfa', path: '/' },
-      { icon: 'categories-icon', title: 'Kategoriler', path: '/categories' },
-      { icon: 'book-icon', title: 'Kitaplarım', path: '/books' },
-      { icon: 'add-icon', title: 'Kitap Ekle', path: '/add' },
+      { icon: 'home-icon', title: 'Anasayfa', pathName: 'home' },
+      { icon: 'categories-icon', title: 'Kategoriler', pathName: 'categories' },
+      { icon: 'book-icon', title: 'Kitaplarım', pathName: 'books' },
+      { icon: 'add-icon', title: 'Kitap Ekle', pathName: 'add' },
     ])
 
     return {
       menu,
-      showMenu
+      showMenu,
+      route,
+      activePage,
     }
   }
 };
@@ -77,6 +87,10 @@ export default {
   align-items: center;
   justify-content: space-between;
 
+  .page-title{
+    color: #747474
+  }
+
   .exit {
     cursor: pointer;
     display: flex;
@@ -89,7 +103,8 @@ export default {
     .me-1 {
       display: block;
       font-size: 16px;
-      color: #787878;
+      color: #747474;
+      font-weight: 500;
     }
     &:hover {
       opacity: 1.5;

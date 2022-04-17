@@ -1,17 +1,17 @@
 <template>
   <div class="add-book flex-column flex-lg-row justify-content-md-between">
-    <div class="add-book-image me-lg-5">
+    <div class="add-book-image me-lg-5 mb-5 mb-lg-0">
       <AddImage />
       <div>Resim Yükle</div>
     </div>
-    <div class="book-info">
+    <div class="book-info mb-5 mb-lg-0">
       <div class="book-info-row">
         <div class="book-info-row-title">
           <h5>Kitap Adı</h5>
           <span>:</span>
         </div>
         <div class="book-info-row-desc">
-          <input type="text" />
+          <input type="text"  />
         </div>
       </div>
       <div class="book-info-row">
@@ -167,4 +167,12 @@ export default {
     }
   }
 }
+
+
+input[type="text"]{
+  &:focus-visible{
+    outline: none !important;
+  }
+}
+
 </style>

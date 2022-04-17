@@ -15,7 +15,7 @@
       </div>
       <div class="book-info-row">
         <div class="book-info-row-title">
-          <h5>Yazarı</h5>
+          <h5>Yazar</h5>
           <span>:</span>
         </div>
         <div class="book-info-row-desc">
@@ -33,16 +33,16 @@
       </div>
       <div class="book-info-row">
         <div class="book-info-row-title">
-          <h5>Kit</h5>
+          <h5>Kategori</h5>
           <span>:</span>
         </div>
         <div class="book-info-row-desc">
-          <span>Osmanlı</span>
+          <span>Tarih</span>
         </div>
       </div>
       <div class="book-info-row">
         <div class="book-info-row-title">
-          <h5>Kitap Adı</h5>
+          <h5>Yorum</h5>
           <span>:</span>
         </div>
         <div class="book-info-row-desc">

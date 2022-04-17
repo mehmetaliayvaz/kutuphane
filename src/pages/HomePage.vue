@@ -13,15 +13,22 @@
         </div>
       </div>
       <div class="content">
-        <h3>KÜTÜPHANEM NEDİR ?</h3>
+        <h3 class="text-center">KÜTÜPHANEM NEDİR ?</h3>
 
-        <p>
-          Kütüphanem ile istediğiniz kitabı kitaplığınıza ekleyebilirsiniz. Yeni
-          kategoriler oluşturarak sisteme eklediğiniz kitapları bu
-          kategorilere<br />
-          ekleyebilirsiniz. <br />
-          Eklediğiniz kitaplara kendi yorumunuzu kaydedebilirsiniz.
-        </p>
+        <ul>
+          <li>
+          Kütüphanem ile elinizdeki kitapları sanal ortama taşıyarak kolay ve hızlı bir şekilde
+          istediğiniz kitabın bilgisine ulaşabilirsiniz.
+          </li>
+          <li>
+            Kitapları kategorilere göre ayırarak 
+          gruplandırma yapabilirsiniz.
+          </li>
+          <li>
+            Kitaplarınızın yayınevi ve yazar bilgilerine kolayca ulaşabilirsiniz.
+          </li>
+          <li>Kütüpyane yönetim süreçleriniz daha da pratikleşir.</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -57,7 +64,6 @@ export default {
   margin-right: auto;
   margin-top: 100px;
   max-width: 610px;
-  text-align: center;
   align-items: center;
   justify-content: center;
   h3 {

@@ -18,22 +18,22 @@ const router = createRouter({
     },
     {
       path: '/categories',
-      name: 'categories-page',
+      name: 'categories',
       component: CategoriesPage
     },
     {
       path: '/books',
-      name: 'book-page',
+      name: 'books',
       component: BookPage
     },
     {
       path: '/add',
-      name: 'add-page',
+      name: 'add',
       component: AddPage
     },
     {
       path: '/login',
-      name: 'login-page',
+      name: 'login',
       component: LoginPage
     },
   ]

@@ -3,13 +3,12 @@
     class="category-card text-white rounded"
     :style="'background:' + info.color"
   >
-    <div>BookIcon</div>
+
     <h3 class="category-card-text">{{ info.text }}</h3>
   </div>
 </template>
 
 <script>
-import BookIcon from "../icons/BookIcon.vue";
 export default {
   name: "CategoryCard",
   props: {
@@ -32,7 +31,7 @@ export default {
   filter: drop-shadow(0px 3px 15px rgba(0, 0, 0, 0.1));
 
   &-text {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }
 </style>

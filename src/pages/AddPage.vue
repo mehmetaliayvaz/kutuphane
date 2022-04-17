@@ -1,5 +1,5 @@
 <template>
-  <div id="category" class="py-5">
+  <div id="add-book">
     <div class="container-app">
       <add-card />
     </div>
@@ -18,5 +18,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+#add-book{
+  padding: 10rem 0;
+}
+
 </style>
