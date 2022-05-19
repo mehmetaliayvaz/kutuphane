@@ -32,6 +32,7 @@ export default {
 <style lang="scss">
 @import "./scss/app.scss";
 
+
 .app {
   background: $body-color;
 }

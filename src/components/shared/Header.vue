@@ -51,7 +51,7 @@ export default {
     const route = useRoute();
     const activePage = computed(() => {
       const active = menu.value.find(item => item.pathName == route.name);
-      return active.title;
+      return active?.title;
     })
 
     const showMenu = ref(false);
