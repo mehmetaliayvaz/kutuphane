@@ -25,7 +25,8 @@
 <script>
 import { ref } from "vue";
 import { auth } from "../fb";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "vue-router";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import LoginCard from "../components/cards/LoginCard.vue";
 
 export default {
@@ -34,6 +35,7 @@ export default {
     LoginCard,
   },
   setup(){
+    const router = useRouter();
 
     const user = ref({
       name: '',
@@ -43,16 +45,31 @@ export default {
     
     const createUser = () => {
       createUserWithEmailAndPassword(auth, user.value.email, user.value.password)
-      .then((res) => {
-        localStorage.setItem('user', JSON.stringify(res));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then((res) => {
+          loginUser();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     }
+
+
+    const loginUser = () => {
+      signInWithEmailAndPassword(auth, user.value.email, user.value.password)
+        .then((res) => {
+          localStorage.setItem('user', JSON.stringify(res));
+          router.push('/');
+        })
+        .catch((err) => {
+          console.log(err)
+        });
+
+    }
+
 
     return{
       createUser,
+      loginUser,
       user,
     } 
   }

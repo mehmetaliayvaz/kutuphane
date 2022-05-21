@@ -6,8 +6,8 @@
       </button>
       <h1 class="page-title m-0">{{ activePage }}</h1>
     </div>
-    <button class="exit btn">
-      <div class="me-1">Çıkış Yap</div>
+    <button class="exit btn" @click="exitUser()">
+      <span class="me-1">Çıkış Yap</span>
       <span class="exit-icon">
         <ExitIcon />
       </span>
@@ -42,17 +42,25 @@ import BookIcon from "../icons/BookIcon.vue";
 import AddIcon from "../icons/AddIcon.vue";
 import { ref, computed } from '@vue/reactivity';
 import CloseIcon from '../icons/CloseIcon.vue';
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 export default {
   name: "Header",
   components: { ExitIcon, MenuIcon, HomeIcon, CategoriesIcon, BookIcon, AddIcon, CloseIcon },
   setup(){
     const route = useRoute();
+    const router = useRouter();
     const activePage = computed(() => {
       const active = menu.value.find(item => item.pathName == route.name);
       return active?.title;
-    })
+    });
+
+
+    const exitUser = () => {
+      localStorage.removeItem('user');
+      router.push('/login');
+    };
+
 
     const showMenu = ref(false);
     const menu = ref([
@@ -67,6 +75,7 @@ export default {
       showMenu,
       route,
       activePage,
+      exitUser,
     }
   }
 };
