@@ -1,8 +1,8 @@
 <template>
   <div id="login">
     <div class="login-container">
-      <div class="content">
-        <span>İsim</span>
+      <div v-if="loginState" class="content">
+        <span>İsim Soyisim</span>
         <input type="text" v-model="user.name" placeholder="Mehmet" />
       </div>
       <div class="content">
@@ -14,9 +14,15 @@
         <input type="password" v-model="user.password" placeholder="*******" />
       </div>
 
-      <div class="content button">
-        <span class="">Giriş Yap</span>
-        <button @click="createUser()">Kayıt Ol</button>
+      <div>
+        <div class="content my-3">
+          <button @click="loginState ? createUser() : loginUser()">{{ loginState ? 'Kayıt Ol' : 'Giriş Yap'  }}</button>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn" @click="loginState = !loginState" style="font-size: 12px;">
+            {{ loginState ? 'Giriş Yapmak için Tıkla' : 'Kayıt Olmak için Tıkla'  }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -36,6 +42,7 @@ export default {
   },
   setup(){
     const router = useRouter();
+    const loginState = ref(true);
 
     const user = ref({
       name: '',
@@ -49,7 +56,7 @@ export default {
           loginUser();
         })
         .catch((err) => {
-          console.log(err);
+          alert(err);
         })
     }
 
@@ -61,7 +68,7 @@ export default {
           router.push('/');
         })
         .catch((err) => {
-          console.log(err)
+          alert(err);
         });
 
     }
@@ -71,6 +78,7 @@ export default {
       createUser,
       loginUser,
       user,
+      loginState,
     } 
   }
 };
