@@ -1,8 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -21,7 +20,38 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 
+const db = getFirestore(app);
+
+export const colRef = (ref) => {
+  return collection(db, ref);
+}
+
+
+// get collection data
+getDocs(colRef('books'))
+  .then(snapshot => {
+    // console.log(snapshot.docs)
+    let books = []
+    snapshot.docs.forEach(doc => {
+      books.push({ ...doc.data(), id: doc.id })
+    })
+    console.log(books)
+  })
+  .catch(err => {
+    console.log(err.message)
+  })
 
 
 
+// deleting docs
+// const deleteBookForm = document.querySelector('.delete')
+// deleteBookForm.addEventListener('submit', (e) => {
+//   e.preventDefault()
 
+//   const docRef = doc(db, 'books', deleteBookForm.id.value)
+
+//   deleteDoc(docRef)
+//     .then(() => {
+//       deleteBookForm.reset()
+//     })
+// })
