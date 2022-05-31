@@ -11,6 +11,14 @@ const store = createStore({
     setUser (state, payload) {
       state.user = payload;
     }
+  },
+  getters: {
+    getUser(state){
+      return state.user;
+    },
+    getEmail(state){
+      return state.user.user.email;
+    }
   }
 })
 

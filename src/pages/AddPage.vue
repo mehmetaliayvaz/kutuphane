@@ -71,6 +71,7 @@
 
 <script>
 import { ref } from "vue";
+import { useStore } from "vuex";
 import { colRef } from "../fb";
 import AddImage from "../components/icons/AddImage.vue";
 import { addDoc } from 'firebase/firestore'
@@ -81,6 +82,7 @@ export default {
     AddImage,
   },
   setup(){
+    const store = useStore();
     const books = ref({
       image: '',
       name: '',
@@ -88,6 +90,7 @@ export default {
       publisher: '',
       note: '',
       category: null,
+      user_email: store.getters.getEmail,
     });
 
     const addBook = () => {
@@ -101,6 +104,7 @@ export default {
     return{
       books,
       addBook,
+      store,
     }
   }
 };
