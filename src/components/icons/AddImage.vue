@@ -27,7 +27,6 @@
 <script>
 import { ref } from "vue";
 import { saveFile } from "../../fb";
-import { uploadBytes } from "firebase/storage";
 export default {
   name: "AddImage",
   setup(){
@@ -43,7 +42,9 @@ export default {
         if(image.value.size < 100000){
           selectedImage.value = URL.createObjectURL(image.value);
           
-          saveFile(image.value.name ,image.value);
+          saveFile(image.value.name ,image.value).then((res) => {
+
+          })
         }
         else{
           alert('Yüklenen fotoğraf boyutu maximum 100kb olabilir...')
