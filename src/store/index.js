@@ -5,11 +5,15 @@ const store = createStore({
   state () {
     return {
       user: {},
+      books: [],
     }
   },
   mutations: {
     setUser (state, payload) {
       state.user = payload;
+    },
+    setBooks (state, payload) {
+      state.books = payload;
     }
   },
   getters: {
@@ -18,6 +22,9 @@ const store = createStore({
     },
     getEmail(state){
       return state.user.user.email;
+    },
+    getBooks(state){
+      return state.books;
     }
   }
 })

@@ -2,8 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
-
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, where, query } from 'firebase/firestore'
+import store from "./store";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -44,19 +44,21 @@ export const colRef = (ref) => {
 
 
 
+
 // get collection data
-getDocs(colRef('books'))
+export const getBooks = (email) => {
+  const books = [];
+  return getDocs(query(colRef('books'), where("user_email", "==", email)))
   .then(snapshot => {
-    // console.log(snapshot.docs)
-    let books = []
     snapshot.docs.forEach(doc => {
       books.push({ ...doc.data(), id: doc.id })
     })
-    console.log(books)
+    store.commit('setBooks', books);
   })
   .catch(err => {
     console.log(err.message)
   })
+}
 
 
 

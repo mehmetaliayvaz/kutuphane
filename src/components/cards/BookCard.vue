@@ -1,7 +1,7 @@
 <template>
   <div class="book-card p-3 p-md-4">
     <div class="book-card-img me-3 me-md-4">
-      <img src="/img/bookimage.png" alt="" />
+      <img :src="book.image" alt="" class="img-fluid" />
     </div>
     <div class="book-info">
       <div class="book-info-row">
@@ -10,7 +10,7 @@
           <span>:</span>
         </div>
         <div class="book-info-row-desc">
-          <span>Osmanlı Dönemi</span>
+          <span>{{ book.name }}</span>
         </div>
       </div>
       <div class="book-info-row">
@@ -19,7 +19,7 @@
           <span>:</span>
         </div>
         <div class="book-info-row-desc">
-          <span>İlber</span>
+          <span>{{ book.author }}</span>
         </div>
       </div>
       <div class="book-info-row">
@@ -28,7 +28,7 @@
           <span>:</span>
         </div>
         <div class="book-info-row-desc">
-          <span>Can</span>
+          <span>{{ book.publisher }}</span>
         </div>
       </div>
       <div class="book-info-row">
@@ -37,7 +37,7 @@
           <span>:</span>
         </div>
         <div class="book-info-row-desc">
-          <span>Tarih</span>
+          <span>{{ book.category }}</span>
         </div>
       </div>
       <div class="book-info-row">
@@ -46,7 +46,7 @@
           <span>:</span>
         </div>
         <div class="book-info-row-desc">
-          <span>Osmanlı Dönemi</span>
+          <span>{{ book.note }}</span>
         </div>
       </div>
     </div>
@@ -56,6 +56,12 @@
 <script>
 export default {
   name: "BookCard",
+  props: {
+    book: {
+      type: Object,
+      required: true,
+    }
+  }
 };
 </script>
 

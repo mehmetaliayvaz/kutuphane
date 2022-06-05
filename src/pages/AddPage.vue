@@ -96,7 +96,7 @@ export default {
     const addBook = () => {
       addDoc(colRef('books'), books.value)
       .then((res) => {
-        console.log(res);
+        alert('başarıyla eklendi')
       })
     }
     
