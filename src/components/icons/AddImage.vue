@@ -23,7 +23,8 @@ import LoadingIcon from './LoadingIcon.vue';
 export default {
   name: "AddImage",
   components: { FileIcon, LoadingIcon },
-  setup(){
+  emits: ['image'],
+  setup(props, context){
     const isImage = ref(false);
     const selectedImage = ref();
     const image = ref();
@@ -39,6 +40,7 @@ export default {
           saveFile(v4() ,image.value).then((res) => {
             selectedImage.value = res; 
             isImage.value = false;
+            context.emit('image', selectedImage.value);
           })
         }
         else{

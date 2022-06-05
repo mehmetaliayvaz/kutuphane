@@ -3,7 +3,7 @@
     <div class="container-app">
       <div class="add-book flex-column flex-lg-row justify-content-md-between">  
         <div class="add-book-image me-lg-5 mb-5 mb-lg-0">
-          <AddImage />
+          <AddImage @image="books.image = $event" />
           <div>Resim Yükle</div>
         </div>
         <div class="book-info mb-5 mb-lg-0">
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useStore } from "vuex";
 import { colRef } from "../fb";
 import AddImage from "../components/icons/AddImage.vue";
