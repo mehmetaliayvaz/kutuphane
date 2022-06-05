@@ -29,9 +29,7 @@ const storage = getStorage(app);
 
 export const saveFile = (fileName, file) => {
   return uploadBytes(ref(storage, `books/${fileName}`), file).then((res) => {
-    getDownloadURL(res.ref).then((url) => {
-      console.log(url);
-    });
+    return getDownloadURL(res.ref);
   });
 }
 

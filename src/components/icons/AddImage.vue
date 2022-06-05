@@ -8,46 +8,42 @@
   />
   <div @click="$refs.file.click()" class="">
     <img v-if="selectedImage" class="img-fluid" height="128" :src="selectedImage">
-    <svg
-      v-else
-      width="33"
-      height="29"
-      viewBox="0 0 33 29"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M29.4634 24.8911V7.75621H3.46217V24.8911H29.4634ZM29.4634 4.29705C30.325 4.29705 31.0726 4.64565 31.7061 5.34284C32.3397 6.04004 32.6565 6.84449 32.6565 7.75621V24.8911C32.6565 25.8028 32.3397 26.6073 31.7061 27.3045C31.0726 28.0017 30.325 28.3503 29.4634 28.3503H3.46217C2.60053 28.3503 1.85294 28.0017 1.21938 27.3045C0.585822 26.6073 0.269043 25.8028 0.269043 24.8911V4.29705C0.269043 3.38533 0.585822 2.58088 1.21938 1.88368C1.85294 1.18649 2.60053 0.837891 3.46217 0.837891H13.1936L16.4628 4.29705H29.4634Z"
-        fill="#9F9F9F"
-      />
-    </svg>
+    <loading-icon v-else-if="isImage" />
+    <file-icon v-else />
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
 import { saveFile } from "../../fb";
+import { v4 } from "uuid";
+import FileIcon from "./FileIcon.vue";
+import LoadingIcon from './LoadingIcon.vue';
+
 export default {
   name: "AddImage",
+  components: { FileIcon, LoadingIcon },
   setup(){
+    const isImage = ref(false);
     const selectedImage = ref();
     const image = ref();
 
     const onChange = (e) => {
+      isImage.value = true;
       image.value = e.target.files[0];
       if(!image.value.name.endsWith('.jpg') && !image.value.name.endsWith('.jpeg') && !image.value.name.endsWith('.png')){
         alert('Lütfen "png", "jpg", "jpeg" uzantılı bir fotoğraf yükleyiniz...');
       }
       else{
-        if(image.value.size < 100000){
-          selectedImage.value = URL.createObjectURL(image.value);
-          
-          saveFile(image.value.name ,image.value).then((res) => {
-
+        if(image.value.size < 300000){
+          saveFile(v4() ,image.value).then((res) => {
+            selectedImage.value = res; 
+            isImage.value = false;
           })
         }
         else{
-          alert('Yüklenen fotoğraf boyutu maximum 100kb olabilir...')
+          alert('Yüklenen fotoğraf boyutu maximum 300kb olabilir...');
+          isImage.value = false;
         }
       
       }
@@ -56,6 +52,7 @@ export default {
     return{
       selectedImage,
       onChange,
+      isImage,
     }
   }
 };
