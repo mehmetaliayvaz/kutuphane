@@ -51,7 +51,7 @@ export default {
 .sidebar {
   background: $primary;
   width: 255px;
-  height: 100vh;
+  min-height: 100vh;
   color: #fff;
   h1 {
     font-size: 24px;

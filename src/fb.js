@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
 
 // Your web app's Firebase configuration
@@ -20,11 +21,26 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 
+
+//resim yükleme işlemleri
+const storage = getStorage(app);
+
+export const saveFile = (fileName, file) => {
+  uploadBytes(ref(storage, `books/${fileName}`), file).then((res) => {
+    console.log(res);
+  });
+}
+
+
+
+
+//veri kaydetme işlemleri
 const db = getFirestore(app);
 
 export const colRef = (ref) => {
   return collection(db, ref);
 }
+
 
 
 // get collection data
