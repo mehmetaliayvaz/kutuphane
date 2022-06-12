@@ -6,60 +6,74 @@
           <AddImage @image="books.image = $event" />
           <div>Resim Yükle</div>
         </div>
-        <div class="book-info mb-5 mb-lg-0">
-          <div class="book-info-row">
-            <div class="book-info-row-title">
-              <h5>Kitap Adı</h5>
-              <span>:</span>
+        <div class="book-detail mb-5 mb-lg-0">
+          <div class="book-detail-item">
+            <div class="d-flex">
+              <div class="book-detail-item-title">
+                <h5>Kitap Adı</h5>
+                <span>:</span>
+              </div>
+              <div class="book-detail-item-input">
+                <input type="text" v-model="books.name" />
+              </div>
             </div>
-            <span v-if="v$.name.$invalid && showError">Kitap adı zorunludur</span>
-            <div class="book-info-row-desc">
-              <input type="text" v-model="books.name" />
-            </div>
+            <span v-if="v$.name.$invalid && showError" class="book-detail-item-error">Lütfen kitap adını giriniz.</span>
           </div>
-          <div class="book-info-row">
-            <div class="book-info-row-title">
-              <h5>Yazarı</h5>
-              <span>:</span>
+          <div class="book-detail-item">
+            <div class="d-flex">
+              <div class="book-detail-item-title">
+                <h5>Yazar</h5>
+                <span>:</span>
+              </div>
+              <div class="book-detail-item-input">
+                <input type="text" v-model="books.author" />
+              </div>
             </div>
-            <div class="book-info-row-desc">
-              <input type="text" v-model="books.author" />
-            </div>
+            <span v-if="v$.author.$invalid && showError" class="book-detail-item-error">Lütfen yazarı giriniz.</span>
           </div>
-          <div class="book-info-row">
-            <div class="book-info-row-title">
-              <h5>Yayınevi</h5>
-              <span>:</span>
+          <div class="book-detail-item">
+            <div class="d-flex">
+              <div class="book-detail-item-title">
+                <h5>Yayınevi</h5>
+                <span>:</span>
+              </div>
+              <div class="book-detail-item-input">
+                <input type="text" v-model="books.publisher" />
+              </div>
             </div>
-            <div class="book-info-row-desc">
-              <input type="text" v-model="books.publisher" />
-            </div>
+            <span v-if="v$.publisher.$invalid && showError" class="book-detail-item-error">Lütfen yayınevini giriniz.</span>
           </div>
-          <div class="book-info-row">
-            <div class="book-info-row-title">
-              <h5>Not</h5>
-              <span>:</span>
+          <div class="book-detail-item">
+            <div class="d-flex">
+              <div class="book-detail-item-title">
+                <h5>Not</h5>
+                <span>:</span>
+              </div>
+              <div class="book-detail-item-input">
+                <input type="text" v-model="books.note" />
+              </div>
             </div>
-            <div class="book-info-row-desc">
-              <input type="text" v-model="books.note" />
-            </div>
+            <span v-if="v$.note.$invalid" class="book-detail-item-error">Maximum 30 karakter giriniz.</span>
           </div>
-          <div class="book-info-row">
-            <div class="book-info-row-title">
-              <h5>Kategori</h5>
-              <span>:</span>
+          <div class="book-detail-item">
+            <div class="d-flex">
+              <div class="book-detail-item-title">
+                <h5>Kategori</h5>
+                <span>:</span>
+              </div>
+              <div class="book-detail-item-input">
+                <select name="category" v-model="books.category" id="category">
+                  <option
+                    v-for="item in categories"
+                    :key="item.value"
+                    :value="item.value"
+                  >
+                    {{ item.text }}
+                  </option>
+                </select>
+              </div>
             </div>
-            <div class="book-info-row-desc">
-              <select name="category" v-model="books.category" id="category">
-                <option
-                  v-for="item in categories"
-                  :key="item.value"
-                  :value="item.value"
-                >
-                  {{ item.text }}
-                </option>
-              </select>
-            </div>
+            <span v-if="v$.category.$invalid && showError" class="book-detail-item-error">Lütfen kategori seçiniz.</span>
           </div>
         </div>
         <div class="add-button">
@@ -79,7 +93,7 @@ import AddImage from "../components/icons/AddImage.vue";
 import { addDoc } from "firebase/firestore";
 import toastr from "../plugins/toastr";
 import useVuelidate from "@vuelidate/core";
-import { required, maxValue } from "@vuelidate/validators";
+import { required, maxLength  } from "@vuelidate/validators";
 
 export default {
   name: "AddPage",
@@ -103,7 +117,7 @@ export default {
       name: { required, $autoDirty: true },
       author: { required, $autoDirty: true },
       publisher: { required, $autoDirty: true },
-      note: { maxValue: maxValue(30), $autoDirty: true },
+      note: { maxLength : maxLength(30), $autoDirty: true },
       category: { required, $autoDirty: true },
     });
 
@@ -116,14 +130,8 @@ export default {
         addDoc(colRef("books"), books.value).then((res) => {
           toastr.success("Başarıyla Eklendi.");
 
-          books.value = {
-            image: "",
-            name: "",
-            author: "",
-            publisher: "",
-            note: "",
-            category: null,
-          };
+          showError.value = false;
+          window.location.reload();
         });
       }
     };
@@ -148,7 +156,6 @@ export default {
 .add-book {
   display: flex;
   align-items: center;
-
   max-width: 770px;
   padding: 35px 50px 35px 60px;
   background-color: #fff;
@@ -167,63 +174,38 @@ export default {
       margin-bottom: 0.5rem;
     }
   }
-  .book-info {
-    width: 300px;
 
-    span {
-      display: flex;
-      font-size: 14px;
-      font-weight: 400;
-      color: #787878;
-      align-items: center;
-      justify-content: center;
-      text-align: right;
-    }
-
-    h5 {
-      min-width: 25px;
-      font-size: 14px;
-      line-height: 21px;
-      font-weight: bold;
-      color: #787878;
-      margin: 0;
-    }
-
-    &-row {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.2rem 0;
+  .book-detail {
+    &-item {
+      margin-bottom: 0.5rem;
 
       &-title {
-        max-width: 75px;
-        width: 100%;
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
+        width: 80px;
         margin-right: 1rem;
+        h5{
+          font-size: 14px;
+          margin-bottom: 0;
+        }
       }
-
-      &-desc {
-        select {
-          width: 45%;
+      &-input{
+        input, select{
           border: none;
-          border-bottom: 1px solid #bebebe;
+          border-bottom: 1px solid #d5d5d5;
+          font-size: 14px;
+          color: #6d6d6d; 
         }
-        input {
-          border: none;
-          border-bottom: 1px solid #bebebe;
-
-          color: #000;
-        }
-        white-space: nowrap;
-        width: 100%;
-        display: flex;
-        justify-content: start;
+      }
+      &-error{
+        color: #ff0000;
+        font-size: 12px;
+        margin-top: 0.5rem;
       }
     }
   }
+
   .add-button {
     button {
       background-color: #ff5722;
