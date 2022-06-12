@@ -1,7 +1,7 @@
 <template>
   <div id="add-book">
     <div class="container-app">
-      <div class="add-book flex-column flex-lg-row justify-content-md-between">  
+      <div class="add-book flex-column flex-lg-row justify-content-md-between">
         <div class="add-book-image me-lg-5 mb-5 mb-lg-0">
           <AddImage @image="books.image = $event" />
           <div>Resim Yükle</div>
@@ -12,6 +12,7 @@
               <h5>Kitap Adı</h5>
               <span>:</span>
             </div>
+            <span v-if="v$.name.$invalid && showError">Kitap adı zorunludur</span>
             <div class="book-info-row-desc">
               <input type="text" v-model="books.name" />
             </div>
@@ -50,8 +51,13 @@
             </div>
             <div class="book-info-row-desc">
               <select name="category" v-model="books.category" id="category">
-                <option v-for="item in categories" :key="item.value" :value="item.value">{{ item.text }}</option>
-                
+                <option
+                  v-for="item in categories"
+                  :key="item.value"
+                  :value="item.value"
+                >
+                  {{ item.text }}
+                </option>
               </select>
             </div>
           </div>
@@ -70,56 +76,72 @@ import { useStore } from "vuex";
 import { colRef } from "../fb";
 import { categories } from "../helpers/categories";
 import AddImage from "../components/icons/AddImage.vue";
-import { addDoc } from 'firebase/firestore'
+import { addDoc } from "firebase/firestore";
 import toastr from "../plugins/toastr";
+import useVuelidate from "@vuelidate/core";
+import { required, maxValue } from "@vuelidate/validators";
 
 export default {
   name: "AddPage",
   components: {
     AddImage,
   },
-  setup(){
+  setup() {
     const store = useStore();
+    const showError = ref(false);
     const books = ref({
-      image: '',
-      name: '',
-      author: '',
-      publisher: '',
-      note: '',
+      image: "",
+      name: "",
+      author: "",
+      publisher: "",
+      note: "",
       category: null,
       user_email: store.getters.getEmail,
     });
 
+    const rules = ref({
+      name: { required, $autoDirty: true },
+      author: { required, $autoDirty: true },
+      publisher: { required, $autoDirty: true },
+      note: { maxValue: maxValue(30), $autoDirty: true },
+      category: { required, $autoDirty: true },
+    });
+
+    const v$ = useVuelidate(rules.value, books);
+
     const addBook = () => {
-      addDoc(colRef('books'), books.value)
-      .then((res) => {
-        toastr.success('Başarıyla Eklendi.');
+      showError.value = true;
 
-        books.value = {
-          image: '',
-          name: '',
-          author: '',
-          publisher: '',
-          note: '',
-          category: null,
-        }
-      })
-    }
-    
+      if (!v$.value.$invalid) {
+        addDoc(colRef("books"), books.value).then((res) => {
+          toastr.success("Başarıyla Eklendi.");
 
-    return{
+          books.value = {
+            image: "",
+            name: "",
+            author: "",
+            publisher: "",
+            note: "",
+            category: null,
+          };
+        });
+      }
+    };
+
+    return {
       books,
       addBook,
       store,
       categories,
-    }
-  }
+      v$,
+      showError,
+    };
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
-#add-book{
+#add-book {
   padding: 10rem 0;
 }
 
@@ -217,11 +239,9 @@ export default {
   }
 }
 
-
-input[type="text"]{
-  &:focus-visible{
+input[type="text"] {
+  &:focus-visible {
     outline: none !important;
   }
 }
-
 </style>
