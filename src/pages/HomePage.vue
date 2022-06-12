@@ -35,8 +35,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import HomeCard from "../components/cards/HomeCard.vue";
+import { useStore } from "vuex";
 
 export default {
   name: "HomePage",
@@ -44,11 +45,50 @@ export default {
     HomeCard,
   },
   setup() {
+    const store = useStore();
+
+    const bookNumber = computed(() => {
+      return store.getters.getBooks.length;
+    });
+
+    const calcCategory = computed(() => {
+      const tempCategories = [];
+      store.getters.getBooks.forEach((item) => {
+        if(!tempCategories.includes(item.category)) {
+          tempCategories.push(item.category);
+        }
+      });
+      return tempCategories.length;
+    });
+
+    const calcAuthor = computed(() => {
+      const tempAuthors = [];
+      store.getters.getBooks.forEach((item) => {
+        const tempAuthor = item.author.toLowerCase().replace(/ /g,'');
+        console.log(!tempAuthors.includes(tempAuthor));
+        if(!tempAuthors.includes(tempAuthor)) {
+          tempAuthors.push(tempAuthor);
+        }
+      });
+      return tempAuthors.length;
+    });
+
+    const calcPublisher = computed(() => {
+      const tempPublishers = [];
+      store.getters.getBooks.forEach((item) => {
+        const tempPublisher = item.publisher.toLowerCase().replace(/ /g,'');
+        if(!tempPublishers.includes(tempPublisher)) {
+          tempPublishers.push(tempPublisher);
+        }
+      });
+      return tempPublishers.length;
+    });
+
     const cards = ref([
-      { color: "#F5365C", number: 15, text: "Kitap Sayısı" },
-      { color: "#0079FB", number: 7, text: "Kategori Sayısı" },
-      { color: "#2DCE89", number: 20, text: "Yazar Sayısı" },
-      { color: "#FB6340", number: 10, text: "Yayınevi Sayısı" },
+      { color: "#F5365C", number: bookNumber , text: "Kitap Sayısı" },
+      { color: "#0079FB", number: calcCategory, text: "Kategori Sayısı" },
+      { color: "#2DCE89", number: calcAuthor, text: "Yazar Sayısı" },
+      { color: "#FB6340", number: calcPublisher, text: "Yayınevi Sayısı" },
     ]);
 
     return {

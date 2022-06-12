@@ -1,7 +1,7 @@
 <template>
   <div class="book-card p-3 p-md-4">
     <div class="book-card-img me-3 me-md-4">
-      <img :src="book.image" />
+      <img :src="book.image != '' ? book.image : '/img/default-book.jpg'" />
     </div>
     <div class="book-info">
       <div class="book-info-row">

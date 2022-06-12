@@ -9,12 +9,12 @@
 </template>
 
 <script>
+import { watch } from "vue";
 import Sidebar from "../src/components/shared/Sidebar.vue";
 import Header from "./components/shared/Header.vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { getBooks } from "./fb";
-import { onMounted, watch } from "vue";
 
 export default {
   name: "App",
@@ -26,13 +26,11 @@ export default {
     const route = useRoute();
     const store = useStore();
 
-    // if (store.getters.getEmail !== undefined) {
-    //   getBooks(store.getters.getEmail);
-    // } 
-    // else {
-    //   alert('hey')
-    // }
-    getBooks('mehmet@gmail.com');
+    const user = JSON.parse(localStorage.getItem('user')); 
+    if(user){
+      getBooks(user.user.email);
+    }
+
 
     return {
       route,
