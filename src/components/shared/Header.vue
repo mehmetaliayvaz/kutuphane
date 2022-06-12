@@ -43,6 +43,7 @@ import AddIcon from "../icons/AddIcon.vue";
 import { ref, computed } from '@vue/reactivity';
 import CloseIcon from '../icons/CloseIcon.vue';
 import { useRoute, useRouter } from "vue-router";
+import toastr from "../../plugins/toastr";
 
 export default {
   name: "Header",
@@ -59,6 +60,7 @@ export default {
     const exitUser = () => {
       localStorage.removeItem('user');
       router.push('/login');
+      toastr.success("Başarıyla çıkış yapıldı.");
     };
 
 
