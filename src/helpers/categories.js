@@ -1,0 +1,18 @@
+export const categories = [
+  { color: "#ffcc80", text: "Tarih", value: 'tarih' },
+  { color: "#81C5D880", text: "Felsefe", value: 'felsefe' },
+  { color: "#b0bec5", text: "Bilim", value: 'bilim' },
+  { color: "#59459380", text: "Sağlık", value: 'saglik' },
+  { color: "#FF7B1280",text: "Edebiyat", value: 'edebiyat' },
+  { color: "#94EC1B80", text: "Roman", value: 'roman' },
+  { color: "#9EC12F80", text: "Biyografi", value: 'biyografi' },
+  { color: "#ef9a9a", text: "Çocuk", value: 'cocuk' },
+  { color: "#f48fb1", text: "Kişisel Gelişim", value: 'kisisel' },
+  { color: "#ce93d8", text: "Çizgi Roman", value: 'cizgi' },
+  { color: "#bcaaa4", text: "Ders", value: 'ders' },
+  { color: "#9fa8da", text: "Mühendislik", value: 'muhendislik' },
+  { color: "#90caf9", text: "Dergi", value: 'dergi' },
+  { color: "#80cbc4", text: "Hukuk", value: 'hukuk' },
+  { color: "#a5d6a7", text: "Ekonomi", value: 'ekonomi' },
+  { color: "#80deea", text: "Diğer", value: 'diger' },
+];

@@ -26,7 +26,8 @@ export default {
   setup(){
     const store = useStore();
 
-    getBooks(store.getters.getEmail);
+    
+    
     const books = computed(() => {
       return store.getters.getBooks;
     })

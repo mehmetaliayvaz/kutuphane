@@ -50,13 +50,8 @@
             </div>
             <div class="book-info-row-desc">
               <select name="category" v-model="books.category" id="category">
-                <option value="fantastic">Fantastik</option>
-                <option value="entertainment">Eğlence</option>
-                <option value="drama">Drama</option>
-                <option value="history">Tarih</option>
-                <option value="philosophy">Felsefe</option>
-                <option value="biography">Biyografi</option>
-                <option value="novel">Roman</option>
+                <option v-for="item in categories" :key="item.value" :value="item.value">{{ item.text }}</option>
+                
               </select>
             </div>
           </div>
@@ -73,6 +68,7 @@
 import { ref, watch } from "vue";
 import { useStore } from "vuex";
 import { colRef } from "../fb";
+import { categories } from "../helpers/categories";
 import AddImage from "../components/icons/AddImage.vue";
 import { addDoc } from 'firebase/firestore'
 
@@ -105,6 +101,7 @@ export default {
       books,
       addBook,
       store,
+      categories,
     }
   }
 };
