@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { auth } from "../fb";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -67,40 +67,48 @@ export default {
 
     const v$ = useVuelidate(rules.value, user);
     
+    watch(() => loginState.value, () => {
+      rules.value.name = requiredIf(loginState.value);
+    });
+
     const createUser = () => {
+      console.log('hey1')
       showError.value = true;
       if(!v$.value.$invalid){
+        console.log('hey2')
         createUserWithEmailAndPassword(auth, user.value.email, user.value.password)
         .then((res) => {
           loginUser();
         })
         .catch((err) => {
-          alert(err);
+          toastr.error('Email ve şifrenizi kontrol ediniz.');
         })
       }
     }
 
 
     const loginUser = () => {
+      console.log('hey3')
       showError.value = true;
       if(!v$.value.$invalid){
+        console.log('hey4')
         signInWithEmailAndPassword(auth, user.value.email, user.value.password)
           .then((res) => {
             localStorage.setItem('user', JSON.stringify(res));
             store.commit('setUser', res);
 
             if(loginState.value){
-              toastr.success('Kayıt başarılı');
+              toastr.success('Başarıyla Kayıt Oldunuz.');
             }
             else{
-              toastr.success('Giriş başarılı');
+              toastr.success('Başarıyla Giriş Yaptınız.');
             }
 
             router.push('/');
 
           })
           .catch((err) => {
-            alert(err);
+            toastr.error('Email ve şifrenizi kontrol ediniz.');
           });
       }
 

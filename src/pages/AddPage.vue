@@ -131,7 +131,10 @@ export default {
           toastr.success("Başarıyla Eklendi.");
 
           showError.value = false;
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+          
         });
       }
     };
