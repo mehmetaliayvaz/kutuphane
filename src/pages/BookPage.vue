@@ -2,7 +2,7 @@
   <div id="category" class="py-5">
     <div class="container-app">
       <div>
-        <div class="row justify-content-center">
+        <div class="row">
           <div v-for="(item, index) in books" :key="index" class="col-12 col-lg-6 mb-4">
             <book-card :book="item" />
           </div>

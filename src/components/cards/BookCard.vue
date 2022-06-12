@@ -1,7 +1,7 @@
 <template>
   <div class="book-card p-3 p-md-4">
     <div class="book-card-img me-3 me-md-4">
-      <img :src="book.image" alt="" class="img-fluid" />
+      <img :src="book.image" />
     </div>
     <div class="book-info">
       <div class="book-info-row">
@@ -72,7 +72,15 @@ export default {
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
-  max-height: 200px;
+  max-height: 250px;
+
+  .book-card-img{
+    img{
+      width: 100px;
+      height: 150px;
+      object-fit: cover; 
+    }
+  }
 
   .book-info {
     width: 100%;

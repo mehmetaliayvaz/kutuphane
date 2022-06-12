@@ -65,12 +65,13 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 import { colRef } from "../fb";
 import { categories } from "../helpers/categories";
 import AddImage from "../components/icons/AddImage.vue";
 import { addDoc } from 'firebase/firestore'
+import toastr from "../plugins/toastr";
 
 export default {
   name: "AddPage",
@@ -92,7 +93,16 @@ export default {
     const addBook = () => {
       addDoc(colRef('books'), books.value)
       .then((res) => {
-        alert('başarıyla eklendi')
+        toastr.success('Başarıyla Eklendi.');
+
+        books.value = {
+          image: '',
+          name: '',
+          author: '',
+          publisher: '',
+          note: '',
+          category: null,
+        }
       })
     }
     
