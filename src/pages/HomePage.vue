@@ -94,11 +94,10 @@ export default {
     ]);
 
     const sss = ref([
-      { title: 'Kütüphanem Nedir?', content: 'Kütüphanem ile elinizdeki kitapları sanal ortama taşıyarak kolay ve hızlı bir şekilde istediğiniz kitabın bilgisine ulaşabilirsiniz.' },
-      { title: 'Gruplandırma Özelliği Nedir?', content: 'Kitapları kategorilere göre ayırarak gruplandırma yapabilirsiniz.' },
-      { title: 'Arama Özelliği Nedir?', content: 'Kitaplarınızın isimlerine, yazarlarına, yayınevlerine göre arama yapabilirsiniz.' },
-      { title: 'Kitap Ekleme Özelliği Nedir?', content: 'Kitaplarınızın bilgilerini kütüphanemde kaydedebilirsiniz.' },
-      { title: 'Kitap Silme Özelliği Nedir?', content: 'Kitaplarınızın bilgilerini kütüphanemde silebilirsiniz.' },
+      { title: 'Kütüphanem Nedir?', content: 'Kütüphanem, kütüphanenizdeki kitapların bilgilerini sanal ortamda saklamaya yarar. Ayrıca kütüphane yönetiminizi kolaylaştırır.' },
+      { title: 'Gruplandırma Özelliği Nedir?', content: 'Kitapları kategorilere göre ayırarak gruplandırma yapabilirsiniz. Böylece belirli bir alandaki kitapları hızlıca görebilirsiniz.' },
+      { title: 'Kütüphanem Üzerinde Hangi Bilgiler Saklanır?', content: "Kütüphanem'de kitaplarınızın resmi, ismi, yazarı, yayınevi ve kendinizin ekleyeceği not bilgisi saklanır." },
+      { title: 'Kitap Eklemede Bir Sınır Bulunuyor mu?', content: "Kütüphanem'e sınırsız kitap ekleyebilirsiniz. Sadece, kitabınızın resmini yüklerken 300KB sınırı bulunmaktadır." },
     ])
 
     return {
