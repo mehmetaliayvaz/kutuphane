@@ -1,15 +1,16 @@
 <template>
-  <div id="sidebar" class="sidebar d-none d-md-flex flex-column align-items-center p-4">
-    <router-link to="/">
+  <div id="sidebar" class="sidebar d-none d-md-flex flex-column align-items-center">
+    <router-link to="/" class="p-4">
       <img src="/img/kutuphanem-logo.png" alt="" class="img-fluid mb-4">
     </router-link>
-    <div>
+    <div class="w-100 d-flex flex-column align-items-center">
 
       <router-link 
         v-for="(item, index) in menu"
         :key="index"
         :to="item.path"
-        class="d-flex align-items-center py-3 text-white text-decoration-none"
+        class="sidebar-menu-item py-3"
+        :class="{ 'active': item.path == route.path }"
       >
         <component :is="item.icon" class="me-2 home-icon" />
         <h2>{{ item.title }}</h2>
@@ -25,10 +26,14 @@ import CategoriesIcon from "../icons/CategoriesIcon.vue";
 import BookIcon from "../icons/BookIcon.vue";
 import AddIcon from "../icons/AddIcon.vue";
 import { ref } from '@vue/reactivity';
+import { useRoute } from 'vue-router';
+
 export default {
   name: "Sidebar",
   components: { HomeIcon, CategoriesIcon, BookIcon, AddIcon },
   setup(){
+    const route = useRoute();
+
     const menu = ref([
       { icon: 'home-icon', title: 'Anasayfa', path: '/' },
       { icon: 'categories-icon', title: 'Kategoriler', path: '/categories' },
@@ -38,6 +43,7 @@ export default {
 
     return {
       menu,
+      route,
     }
   }
 
@@ -49,10 +55,25 @@ export default {
 @import "../../scss/variables.scss";
 
 .sidebar {
-  background: $primary;
+  background-image: linear-gradient(to bottom, #da5934 0%, #f08907 100%);
   width: 255px;
   min-height: 100vh;
   color: #fff;
+
+  &-menu-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    width: 100%;
+    color: white;
+
+    &:hover, &.active{
+      background: #da5934;
+    }
+
+  }
+
   h1 {
     font-size: 24px;
     font-weight: 500;

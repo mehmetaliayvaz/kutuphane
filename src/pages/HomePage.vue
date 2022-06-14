@@ -3,7 +3,7 @@
     <div class="container-app">
       <div>
         <h2 class="mb-4 fw-bold" style="font-size: 1.5rem">İstatistikler</h2>
-        <div class="row" style="margin-bottom: 100px;">
+        <div class="row" style="margin-bottom: 80px;">
           <div
             v-for="(item, index) in cards"
             :key="index"
