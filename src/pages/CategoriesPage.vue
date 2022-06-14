@@ -21,8 +21,11 @@
             </div>
           </div>
           <div v-else-if="getCategoryBooks.length" class="row">
-            <div v-for="(bookItem, bookIndex) in getCategoryBooks" :key="bookIndex" class="col-12 col-lg-6 mb-4">
+            <div v-for="bookItem in getCategoryBooks" :key="bookItem.id" class="col-12 col-lg-6 mb-4 position-relative">
               <book-card :book="bookItem" />
+              <button class="btn btn-delete p-0 px-2" @click="deleteBook(bookItem.id)">
+                <close-icon :size="10" />
+              </button>
             </div>
           </div>
           <div v-else class="py-5 text-center">
@@ -40,12 +43,17 @@ import { useStore } from "vuex";
 import { categories } from "../helpers/categories";
 import CategoryCard from "../components/cards/CategoryCard.vue";
 import BookCard from "../components/cards/BookCard.vue";
+import { deleteDoc, doc } from 'firebase/firestore';
+import toastr from "../plugins/toastr";
+import { db } from "../fb";
+import CloseIcon from '../components/icons/CloseIcon.vue';
 
 export default {
   name: "CategoriesPage",
   components: {
     CategoryCard,
     BookCard,
+    CloseIcon,
   },
   setup() {
     const store = useStore();
@@ -59,12 +67,21 @@ export default {
       return books.value.filter(item => {
         return item.category === activeCategory.value;
       });
-    })
+    });
+
+    const deleteBook = (id) => {
+      deleteDoc(doc(db, 'books', id))
+        .then(() => {
+          store.commit('deleteBook', id);
+          toastr.success('Kitap başarıyla silindi.');
+        })
+    }
 
     return {
       categories,
       activeCategory,
-      getCategoryBooks
+      getCategoryBooks,
+      deleteBook
     };
   },
 };

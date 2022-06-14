@@ -14,6 +14,9 @@ const store = createStore({
     },
     setBooks (state, payload) {
       state.books = payload;
+    },
+    deleteBook (state, payload) {
+      state.books = state.books.filter(book => book.id !== payload);
     }
   },
   getters: {

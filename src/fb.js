@@ -36,7 +36,7 @@ export const saveFile = (fileName, file) => {
 
 
 //veri kaydetme işlemleri
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 export const colRef = (ref) => {
   return collection(db, ref);
@@ -60,17 +60,3 @@ export const getBooks = (email) => {
   })
 }
 
-
-
-// deleting docs
-// const deleteBookForm = document.querySelector('.delete')
-// deleteBookForm.addEventListener('submit', (e) => {
-//   e.preventDefault()
-
-//   const docRef = doc(db, 'books', deleteBookForm.id.value)
-
-//   deleteDoc(docRef)
-//     .then(() => {
-//       deleteBookForm.reset()
-//     })
-// })

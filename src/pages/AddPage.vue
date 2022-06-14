@@ -27,9 +27,9 @@
               </div>
               <div class="book-detail-item-input">
                 <input type="text" v-model="books.author" @focus="showRecommendedAuthor = true" @blur="showRecommendedAuthor = false" />
-                <div v-if="showRecommendedAuthor" class="book-detail-item-input-offer">
-                  <button v-for="item in recommendedAuthor" :key="item.id" class="btn" @click="books.author = item.author">
-                    {{ item.author }}
+                <div v-show="showRecommendedAuthor" class="book-detail-item-input-offer">
+                  <button v-for="(item, index) in recommendedAuthor" :key="index" class="btn" @mousedown="books.author = item">
+                    {{ item }}
                   </button>
                 </div>
               </div>
@@ -45,8 +45,8 @@
               <div class="book-detail-item-input">
                 <input type="text" v-model="books.publisher" @focus="showRecommendedPublisher = true" @blur="showRecommendedPublisher = false" />
                 <div v-if="showRecommendedPublisher" class="book-detail-item-input-offer">
-                  <button v-for="item in recommendedPublisher" :key="item.id" class="btn" @click="books.publisher = item.publisher">
-                    {{ item.publisher }}
+                  <button v-for="(item, index) in recommendedPublisher" :key="index" class="btn" @click="books.publisher = item">
+                    {{ item }}
                   </button>
                 </div>
               </div>
@@ -87,7 +87,7 @@
           </div>
         </div>
         <div class="add-button">
-          <button @click="addBook">Ekle</button>
+          <button @click="addBook" class="btn" :disabled="isLoading">Ekle</button>
         </div>
       </div>
     </div>
@@ -115,6 +115,7 @@ export default {
     const showError = ref(false);
     const showRecommendedAuthor = ref(false);
     const showRecommendedPublisher = ref(false);
+    const isLoading = ref(false);
 
     const books = ref({
       image: "",
@@ -142,40 +143,27 @@ export default {
         return item.author.match(books.value.author);
       })
 
-      var resultAuthors = [];
-      tempAuthors.forEach(item => {
-        if(!(resultAuthors.includes(item))){
-          resultAuthors.push(item);
-        }
-      });
-
-      return resultAuthors;
+      return [...new Set(tempAuthors.map(item => item.author))]
     });
     
     const recommendedPublisher = computed(() => {
-      var tempPublisher = store.getters.getBooks.filter(item => {
+      var tempPublishers = store.getters.getBooks.filter(item => {
         return item.publisher.match(books.value.publisher);
       })
 
-      var resultPublisher = [];
-      tempPublisher.forEach(item => {
-        if(!(resultPublisher.includes(item))){
-          resultPublisher.push(item);
-        }
-      });
-
-      return resultPublisher;
+      return [...new Set(tempPublishers.map(item => item.publisher))]
     });
 
 
     const addBook = () => {
       showError.value = true;
+      isLoading.value = true;
 
       if (!v$.value.$invalid) {
         addDoc(colRef("books"), {...books.value, author: books.value.author.toLowerCase(), publisher: books.value.publisher.toLowerCase() })
           .then((res) => {
             toastr.success("Başarıyla Eklendi.");
-
+            isLoading.value = false;
             showError.value = false;
             setTimeout(() => {
               window.location.reload();
@@ -196,6 +184,7 @@ export default {
       recommendedPublisher,
       showRecommendedAuthor,
       showRecommendedPublisher,
+      isLoading,
     };
   },
 };
@@ -280,14 +269,15 @@ export default {
   .add-button {
     button {
       background-color: #ff5722;
-      flex-wrap: nowrap;
-      padding: 0.5rem 2.5rem;
-      color: #fff;
-      border: none;
-      border-radius: 24px;
-      font-weight: 400;
       font-size: 14px;
-      line-height: 18px;
+      color: white;
+      padding: 0.5rem 2rem;
+      border-radius: 50px;
+
+      &:hover{
+        background-color: #ce441a;
+      }
+
     }
   }
 }
