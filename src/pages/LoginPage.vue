@@ -1,25 +1,28 @@
 <template>
   <div id="login">
     <div class="login-container">
+      <img src="/img/kutuphanem-logo.png" alt="" class="login-logo mb-4">
       <div v-if="loginState" class="content">
-        <span>İsim Soyisim</span>
+        <span class="login-title">İsim Soyisim</span>
         <input type="text" v-model="user.name" autocomplete="off" />
         <span v-if="v$.name.$invalid && showError" class="warning-text">Lütfen isim soyisim giriniz.</span>
       </div>
       <div class="content">
-        <span>E-mail</span>
+        <span class="login-title">E-mail</span>
         <input type="email" v-model="user.email" autocomplete="off" />
         <span v-if="v$.email.$invalid && showError" class="warning-text">Lütfen email giriniz.</span>
       </div>
       <div class="content">
-        <span>Password</span>
+        <span class="login-title">Password</span>
         <input type="password" v-model="user.password" autocomplete="off" />
         <span v-if="v$.password.$invalid && showError" class="warning-text">Lütfen parola giriniz.</span>
       </div>
 
       <div>
         <div class="content my-3">
-          <button @click="loginState ? createUser() : loginUser()">{{ loginState ? 'Kayıt Ol' : 'Giriş Yap'  }}</button>
+          <button @click="loginState ? createUser() : loginUser()" class="login-btn">
+            {{ loginState ? 'Kayıt Ol' : 'Giriş Yap'  }}
+          </button>
         </div>
         <div class="d-flex justify-content-end">
           <button class="btn" @click="(loginState = !loginState), (showError = false)" style="font-size: 12px;">
@@ -128,5 +131,73 @@ export default {
 <style lang="scss" scoped>
 .warning-text{
   color: red;
+  font-size: 12px;
 }
+
+#login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: url("/img/login-bg.png");
+  background-position: center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.login-logo{
+  width: 400px;
+}
+
+.login-container {
+  border-radius: 50px;
+  padding: 45px 100px;
+  background-color: rgba(#ffffff, 0.8);
+  .content {
+    margin-bottom: 1.3rem;
+    .login-title{
+      font-weight: 600;
+      margin-bottom: 3px;
+      display: block;
+    }
+    input, button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      border-radius: 10px;
+      border: none;
+      width: 100%;
+      padding-left: 10px;
+      &::placeholder {
+        color: rgba($color: #000000, $alpha: 0.4);
+      }
+    }
+    .login-btn{
+      transition: 0.2s;
+      &:hover{
+        background: rgb(224, 224, 224);
+      }
+    }
+  }
+  .button {
+    span {
+      cursor: pointer;
+      text-align: right;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media(max-width: 768px){
+  .login-container{
+    padding: 1rem;
+  }
+  .login-logo{
+    width: 250px;
+  }
+}
+
 </style>
