@@ -45,7 +45,7 @@
               <div class="book-detail-item-input">
                 <input type="text" v-model="books.publisher" @focus="showRecommendedPublisher = true" @blur="showRecommendedPublisher = false" />
                 <div v-if="showRecommendedPublisher" class="book-detail-item-input-offer">
-                  <button v-for="(item, index) in recommendedPublisher" :key="index" class="btn" @click="books.publisher = item">
+                  <button v-for="(item, index) in recommendedPublisher" :key="index" class="btn" @mousedown="books.publisher = item">
                     {{ item }}
                   </button>
                 </div>
