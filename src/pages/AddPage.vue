@@ -26,7 +26,12 @@
                 <span>:</span>
               </div>
               <div class="book-detail-item-input">
-                <input type="text" v-model="books.author" />
+                <input type="text" v-model="books.author" @focus="showRecommendedAuthor = true" @blur="showRecommendedAuthor = false" />
+                <div v-if="showRecommendedAuthor" class="book-detail-item-input-offer">
+                  <button v-for="item in recommendedAuthor" :key="item.id" class="btn" @click="books.author = item.author">
+                    {{ item.author }}
+                  </button>
+                </div>
               </div>
             </div>
             <span v-if="v$.author.$invalid && showError" class="book-detail-item-error">Lütfen yazarı giriniz.</span>
@@ -38,7 +43,12 @@
                 <span>:</span>
               </div>
               <div class="book-detail-item-input">
-                <input type="text" v-model="books.publisher" />
+                <input type="text" v-model="books.publisher" @focus="showRecommendedPublisher = true" @blur="showRecommendedPublisher = false" />
+                <div v-if="showRecommendedPublisher" class="book-detail-item-input-offer">
+                  <button v-for="item in recommendedPublisher" :key="item.id" class="btn" @click="books.publisher = item.publisher">
+                    {{ item.publisher }}
+                  </button>
+                </div>
               </div>
             </div>
             <span v-if="v$.publisher.$invalid && showError" class="book-detail-item-error">Lütfen yayınevini giriniz.</span>
@@ -85,7 +95,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import { colRef } from "../fb";
 import { categories } from "../helpers/categories";
@@ -103,6 +113,9 @@ export default {
   setup() {
     const store = useStore();
     const showError = ref(false);
+    const showRecommendedAuthor = ref(false);
+    const showRecommendedPublisher = ref(false);
+
     const books = ref({
       image: "",
       name: "",
@@ -122,6 +135,38 @@ export default {
     });
 
     const v$ = useVuelidate(rules.value, books);
+
+
+    const recommendedAuthor = computed(() => {
+      var tempAuthors = store.getters.getBooks.filter(item => {
+        return item.author.match(books.value.author);
+      })
+
+      var resultAuthors = [];
+      tempAuthors.forEach(item => {
+        if(!(resultAuthors.includes(item))){
+          resultAuthors.push(item);
+        }
+      });
+
+      return resultAuthors;
+    });
+    
+    const recommendedPublisher = computed(() => {
+      var tempPublisher = store.getters.getBooks.filter(item => {
+        return item.publisher.match(books.value.publisher);
+      })
+
+      var resultPublisher = [];
+      tempPublisher.forEach(item => {
+        if(!(resultPublisher.includes(item))){
+          resultPublisher.push(item);
+        }
+      });
+
+      return resultPublisher;
+    });
+
 
     const addBook = () => {
       showError.value = true;
@@ -147,6 +192,10 @@ export default {
       categories,
       v$,
       showError,
+      recommendedAuthor,
+      recommendedPublisher,
+      showRecommendedAuthor,
+      showRecommendedPublisher,
     };
   },
 };
@@ -195,11 +244,30 @@ export default {
         }
       }
       &-input{
+        position: relative;
         input, select{
           border: none;
           border-bottom: 1px solid #d5d5d5;
           font-size: 14px;
           color: #6d6d6d; 
+        }
+
+        &-offer{
+          position: absolute;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          padding: 0.5rem;
+          color: #6d6d6d;
+          background: white;
+          border-radius: 0.5rem;
+          box-shadow: 0 4px 20px rgb(6 78 177 / 10%);
+          button{
+            font-size: 14px;
+            padding: 0.3rem 0.5rem;
+          }
         }
       }
       &-error{
