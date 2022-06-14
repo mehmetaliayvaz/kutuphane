@@ -2,7 +2,8 @@
   <div id="home" class="py-5">
     <div class="container-app">
       <div>
-        <div class="row">
+        <h2 class="mb-4 fw-bold" style="font-size: 1.5rem">İstatistikler</h2>
+        <div class="row" style="margin-bottom: 100px;">
           <div
             v-for="(item, index) in cards"
             :key="index"
@@ -12,24 +13,24 @@
           </div>
         </div>
       </div>
-      <div class="content">
-        <h3 class="text-center">Kütüphanem Nedir?</h3>
 
-        <ul class="about">
-          <li>
-          Kütüphanem ile elinizdeki kitapları sanal ortama taşıyarak kolay ve hızlı bir şekilde
-          istediğiniz kitabın bilgisine ulaşabilirsiniz.
-          </li>
-          <li>
-            Kitapları kategorilere göre ayırarak 
-          gruplandırma yapabilirsiniz.
-          </li>
-          <li>
-            Kitaplarınızın yayınevi ve yazar bilgilerine kolayca ulaşabilirsiniz.
-          </li>
-          <li>Kütüpyane yönetim süreçleriniz daha da pratikleşir.</li>
-        </ul>
+      <h2 class="mb-4 fw-bold" style="font-size: 1.5rem">Sıkça Sorulan Sorular</h2>
+    
+      <div class="accordion" id="accordionExample">
+        <div v-for="(item, index) in sss" :key="index" class="accordion-item">
+          <h2 class="accordion-header" :id="'heading' + index">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + index" aria-expanded="true" :aria-controls="'#collapse' + index">
+              {{ item.title }}
+            </button>
+          </h2>
+          <div :id="'collapse' + index" class="accordion-collapse collapse" :aria-labelledby="'heading' + index" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              {{ item.content }}
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -92,33 +93,23 @@ export default {
       { color: "#FB6340", number: calcPublisher, text: "Yayınevi Sayısı" },
     ]);
 
+    const sss = ref([
+      { title: 'Kütüphanem Nedir?', content: 'Kütüphanem ile elinizdeki kitapları sanal ortama taşıyarak kolay ve hızlı bir şekilde istediğiniz kitabın bilgisine ulaşabilirsiniz.' },
+      { title: 'Gruplandırma Özelliği Nedir?', content: 'Kitapları kategorilere göre ayırarak gruplandırma yapabilirsiniz.' },
+      { title: 'Arama Özelliği Nedir?', content: 'Kitaplarınızın isimlerine, yazarlarına, yayınevlerine göre arama yapabilirsiniz.' },
+      { title: 'Kitap Ekleme Özelliği Nedir?', content: 'Kitaplarınızın bilgilerini kütüphanemde kaydedebilirsiniz.' },
+      { title: 'Kitap Silme Özelliği Nedir?', content: 'Kitaplarınızın bilgilerini kütüphanemde silebilirsiniz.' },
+    ])
+
     return {
       cards,
+      sss,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped >
-.content {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 100px;
-  max-width: 610px;
-  align-items: center;
-  justify-content: center;
-  h3 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 35px;
-  }
-  p {
-    font-weight: 500;
-    line-height: 30px;
-
-    font-size: 16px;
-  }
-}
 
 .about{
   font-size: 1.1rem;

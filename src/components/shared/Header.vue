@@ -99,7 +99,8 @@ export default {
   justify-content: space-between;
 
   .page-title{
-    color: #747474
+    color: #747474;
+    font-size: 1.2rem;
   }
 
   .exit {
