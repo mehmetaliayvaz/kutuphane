@@ -4,7 +4,7 @@
       <div>
         <div v-if="activeCategory != ''" class="d-flex justify-content-between mb-4">
           <h2>{{ (categories.find(item => item.value == activeCategory )).text }}</h2>
-          <button class="btn btn-secondary" @click="activeCategory = ''">Geri Dön</button>
+          <button class="btn fw-bold" @click="activeCategory = ''" style="text-decoration: underline">˂ Geri Dön</button>
         </div>
         <div v-if="activeCategory == ''" class="row">
           <div

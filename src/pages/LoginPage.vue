@@ -33,7 +33,7 @@
 
 <script>
 import { ref, watch } from "vue";
-import { auth } from "../fb";
+import { auth, getBooks } from "../fb";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import toastr from "../plugins/toastr";
@@ -96,6 +96,8 @@ export default {
           .then((res) => {
             localStorage.setItem('user', JSON.stringify(res));
             store.commit('setUser', res);
+
+            getBooks(res.user.email);
 
             if(loginState.value){
               toastr.success('Başarıyla Kayıt Oldunuz.');
