@@ -2,26 +2,33 @@
   <div id="category" class="py-5">
     <div class="container-app">
       <div>
-        <div v-if="activeCategory != ''" class="d-flex justify-content-between mb-4">
-          <h2>{{ (categories.find(item => item.value == activeCategory )).text }}</h2>
-          <button class="btn fw-bold" @click="activeCategory = ''" style="text-decoration: underline">˂ Geri Dön</button>
-        </div>
-        <div v-if="activeCategory == ''" class="row">
-          <div
-            v-for="item in categories"
-            :key="item.value"
-            class="col-6 col-md-3 mb-4"
-          >
-            <button class="btn w-100 p-0" @click="activeCategory = item.value">
-              <category-card :info="item" />
-            </button>
+        <transition name="fade" mode="out-in">
+          <div v-if="activeCategory != ''" class="d-flex justify-content-between mb-4">
+            <h2>{{ (categories.find(item => item.value == activeCategory )).text }}</h2>
+            <button class="btn fw-bold" @click="activeCategory = ''" style="text-decoration: underline">˂ Geri Dön</button>
           </div>
-        </div>
-        <div v-else class="row">
-          <div v-for="(bookItem, bookIndex) in getCategoryBooks" :key="bookIndex" class="col-12 col-lg-6 mb-4">
-            <book-card :book="bookItem" />
+        </transition>
+        <transition name="fade" mode="out-in">
+          <div v-if="activeCategory == ''" class="row">
+            <div
+              v-for="item in categories"
+              :key="item.value"
+              class="col-6 col-md-3 mb-4"
+            >
+              <button class="btn w-100 p-0" @click="activeCategory = item.value">
+                <category-card :info="item" />
+              </button>
+            </div>
           </div>
-        </div>
+          <div v-else-if="getCategoryBooks.length" class="row">
+            <div v-for="(bookItem, bookIndex) in getCategoryBooks" :key="bookIndex" class="col-12 col-lg-6 mb-4">
+              <book-card :book="bookItem" />
+            </div>
+          </div>
+          <div v-else class="row">
+            <p class="text-center py-5">Bu kategoriye ait kitap bulunamadı...</p>
+          </div>
+        </transition>
       </div>
     </div>
   </div>

@@ -2,9 +2,9 @@
   <div id="add-book">
     <div class="container-app">
       <div class="add-book flex-column flex-lg-row justify-content-md-between">
-        <div class="add-book-image me-lg-5 mb-5 mb-lg-0">
-          <AddImage @image="books.image = $event" />
-          <div>Resim Yükle</div>
+        <div class="add-book-image me-lg-2 mb-5 mb-lg-0" style="cursor: pointer;">
+          <AddImage @image="books.image = $event" class="mb-2" />
+          <div v-if="books.image == ''" style="white-space: nowrap">Resim Yükle</div>
         </div>
         <div class="book-detail mb-5 mb-lg-0">
           <div class="book-detail-item">
@@ -215,7 +215,6 @@ export default {
 
   &-image {
     text-align: center;
-    width: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;

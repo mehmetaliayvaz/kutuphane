@@ -1,15 +1,17 @@
 <template>
-  <input
-    ref="file"
-    type="file"
-    accept=".jpg, .jpeg, .png"
-    style="display: none"
-    @change="onChange($event)"
-  />
-  <div @click="$refs.file.click()" class="">
-    <img v-if="selectedImage" class="img-fluid" height="128" :src="selectedImage">
-    <loading-icon v-else-if="isImage" />
-    <file-icon v-else />
+  <div>
+    <input
+      ref="file"
+      type="file"
+      accept=".jpg, .jpeg, .png"
+      style="display: none"
+      @change="onChange($event)"
+    />
+    <div @click="$refs.file.click()" class="">
+      <img v-if="selectedImage" class="book-img" height="128" :src="selectedImage">
+      <loading-icon v-else-if="isImage" />
+      <file-icon v-else />
+    </div>
   </div>
 </template>
 
@@ -60,4 +62,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+
+.book-img{
+  width: 125px;
+  height: 190px;
+  object-fit: cover;
+  box-shadow: 0 4px 20px rgb(6 78 177 / 10%);
+}
+
+</style>

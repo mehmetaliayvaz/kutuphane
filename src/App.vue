@@ -3,7 +3,11 @@
     <Sidebar v-if="route.name != 'login'" />
     <div class="w-100" style="min-height: 100vh">
       <Header v-if="route.name != 'login'" />
-      <RouterView />
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </div>
   </div>
 </template>
@@ -46,14 +50,5 @@ export default {
   background: $body-color;
 }
 
-/* vue transition */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>
