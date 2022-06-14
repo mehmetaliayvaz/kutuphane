@@ -25,8 +25,8 @@
               <book-card :book="bookItem" />
             </div>
           </div>
-          <div v-else class="row">
-            <p class="text-center py-5">Bu kategoriye ait kitap bulunamadı...</p>
+          <div v-else class="py-5 text-center">
+            <p class="badge bg-warning">Bu kategoriye ait kitap bulunamadı...</p>
           </div>
         </transition>
       </div>

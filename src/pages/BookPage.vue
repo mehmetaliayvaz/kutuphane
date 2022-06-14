@@ -6,6 +6,9 @@
           <div v-for="(item, index) in books" :key="index" class="col-12 col-lg-6 mb-4">
             <book-card :book="item" />
           </div>
+          <div v-if="!books.length" class="text-center py-5">
+            <p class="badge bg-warning" style="font-size: 14px;">Kitaplığınız boş görünüyor...</p>
+          </div>
         </div>
       </div>
     </div>
