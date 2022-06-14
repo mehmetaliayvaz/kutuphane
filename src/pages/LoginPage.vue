@@ -68,7 +68,7 @@ export default {
     const v$ = useVuelidate(rules.value, user);
     
     watch(() => loginState.value, () => {
-      rules.value.name = requiredIf(loginState.value);
+      rules.value.name = { required: requiredIf(loginState.value) };
     });
 
     const createUser = () => {
