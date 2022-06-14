@@ -15,7 +15,7 @@
       <div class="content">
         <span class="login-title">Password</span>
         <input type="password" v-model="user.password" autocomplete="off" />
-        <span v-if="v$.password.$invalid && showError" class="warning-text">Lütfen parola giriniz.</span>
+        <span v-if="v$.password.$invalid && showError" class="warning-text">Minimum 6 karakter uzunluğunda bir parola giriniz.</span>
       </div>
 
       <div>
@@ -42,7 +42,7 @@ import { useStore } from "vuex";
 import toastr from "../plugins/toastr";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import useVuelidate from "@vuelidate/core";
-import { required, maxLength, requiredIf, email  } from "@vuelidate/validators";
+import { required, minLength, requiredIf, email  } from "@vuelidate/validators";
 
 export default {
   name: "LoginPage",
@@ -61,7 +61,7 @@ export default {
     const rules = ref({
       name: { required: requiredIf(loginState.value), $autoDirty: true },
       email: { required, email, $autoDirty: true },
-      password: { required, $autoDirty: true },
+      password: { required, minLength: minLength(6), $autoDirty: true },
     });
 
     const v$ = useVuelidate(rules.value, user);
