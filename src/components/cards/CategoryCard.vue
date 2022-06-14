@@ -3,7 +3,6 @@
     class="category-card text-white rounded"
     :style="'background:' + info.color"
   >
-
     <h3 class="category-card-text">{{ info.text }}</h3>
   </div>
 </template>

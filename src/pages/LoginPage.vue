@@ -38,15 +38,11 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import toastr from "../plugins/toastr";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import LoginCard from "../components/cards/LoginCard.vue";
 import useVuelidate from "@vuelidate/core";
 import { required, maxLength, requiredIf, email  } from "@vuelidate/validators";
 
 export default {
   name: "LoginPage",
-  components: {
-    LoginCard,
-  },
   setup(){
     const store = useStore();
     const router = useRouter();
