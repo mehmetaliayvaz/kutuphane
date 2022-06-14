@@ -25,8 +25,6 @@ export default {
   },
   setup(){
     const store = useStore();
-
-    
     
     const books = computed(() => {
       return store.getters.getBooks;

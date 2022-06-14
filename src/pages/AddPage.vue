@@ -127,15 +127,16 @@ export default {
       showError.value = true;
 
       if (!v$.value.$invalid) {
-        addDoc(colRef("books"), books.value).then((res) => {
-          toastr.success("Başarıyla Eklendi.");
+        addDoc(colRef("books"), {...books.value, author: books.value.author.toLowerCase(), publisher: books.value.publisher.toLowerCase() })
+          .then((res) => {
+            toastr.success("Başarıyla Eklendi.");
 
-          showError.value = false;
-          setTimeout(() => {
-            window.location.reload();
-          }, 500);
-          
-        });
+            showError.value = false;
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+            
+          });
       }
     };
 

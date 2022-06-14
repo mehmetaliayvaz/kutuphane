@@ -64,19 +64,20 @@ export default {
     const calcAuthor = computed(() => {
       const tempAuthors = [];
       store.getters.getBooks.forEach((item) => {
-        const tempAuthor = item.author.toLowerCase().replace(/ /g,'');
-        console.log(!tempAuthors.includes(tempAuthor));
+        const tempAuthor = item.author.replace(/ /g,'');
+        
         if(!tempAuthors.includes(tempAuthor)) {
           tempAuthors.push(tempAuthor);
         }
       });
+      console.log(tempAuthors);
       return tempAuthors.length;
     });
 
     const calcPublisher = computed(() => {
       const tempPublishers = [];
       store.getters.getBooks.forEach((item) => {
-        const tempPublisher = item.publisher.toLowerCase().replace(/ /g,'');
+        const tempPublisher = item.publisher.replace(/ /g,'');
         if(!tempPublishers.includes(tempPublisher)) {
           tempPublishers.push(tempPublisher);
         }
