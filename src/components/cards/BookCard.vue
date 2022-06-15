@@ -42,7 +42,7 @@
       </div>
       <div class="book-info-row">
         <div class="book-info-row-title">
-          <h5>Yorum</h5>
+          <h5>Not</h5>
           <span>:</span>
         </div>
         <div class="book-info-row-desc">
