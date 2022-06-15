@@ -157,9 +157,9 @@ export default {
 
     const addBook = () => {
       showError.value = true;
-      isLoading.value = true;
 
       if (!v$.value.$invalid) {
+        isLoading.value = true;
         addDoc(colRef("books"), {...books.value, author: books.value.author.toLowerCase(), publisher: books.value.publisher.toLowerCase() })
           .then((res) => {
             toastr.success("Başarıyla Eklendi.");

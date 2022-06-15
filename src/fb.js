@@ -45,7 +45,7 @@ export const colRef = (ref) => {
 
 
 
-// get collection data
+// verileri çekme işlemleri
 export const getBooks = (email) => {
   const books = [];
   return getDocs(query(colRef('books'), where("user_email", "==", email)))
